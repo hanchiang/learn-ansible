@@ -1,0 +1,27 @@
+--- # <-- optional
+- name: install and start apache
+  hosts: learn_ansible # inventory group
+  remote_user: ec2-user
+  become: yes # escalate to root user once we are logged in to the machine
+
+  tasks:
+    - name: install python bindings for SELinux
+      yum:
+        name: ["libselinux-python", "libsemanage-python"]
+        state: present
+
+    - name: test to see if SeLinux is running
+      command: getenforce
+      register: sestatus # Save the response of the command
+      changed_when: false
+
+    - name: install apache
+      yum:
+        name: httpd
+        state: present
+
+    - name: start apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes

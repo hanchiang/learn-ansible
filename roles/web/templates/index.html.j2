@@ -1,0 +1,4 @@
+hello world from ansible, today is {{ mood }}! Current host: {{ ansible_hostname
+}} Server list: <br />
+{% for host in groups.learn_ansible %} {{ host }}<br />
+{% endfor %}

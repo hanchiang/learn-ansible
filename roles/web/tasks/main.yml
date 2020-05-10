@@ -1,0 +1,31 @@
+---
+- name: install apache
+  yum:
+    name: httpd
+    state: present
+
+- name: create site directories
+  file:
+    path: "{{ apache_dirs }}"
+    state: directory
+
+- name: copy index.html
+  template:
+    src: index.html.j2
+    dest: "{{ apache_docroot }}/index.html"
+  notify: restart apache
+
+- name: start apache
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+# run the handler now, instead of at the end of all tasks
+- meta: flush_handlers
+
+- name: check for proper response
+  uri:
+    url: http://localhost
+    return_content: yes
+  register: result

@@ -1,0 +1,5 @@
+[gitlab_runners]
+gitlab-runner ansible_host=<REPLACE_WITH_IP>
+
+[learn_ansible]
+my-host ansible_host=<REPLACE_WITH_IP>

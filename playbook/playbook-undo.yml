@@ -1,0 +1,22 @@
+--- # <-- optional
+- name: install and start apache
+  hosts: learn_ansible # inventory group
+  remote_user: ec2-user
+  become: yes # escalate to root user once we are logged in to the machine
+
+  tasks:
+    - name: stop apache
+      service:
+        name: httpd
+        state: stopped
+        enabled: no
+
+    - name: uninstall apache
+      yum:
+        name: httpd
+        state: absent
+
+    - name: uninstall python bindings for SELinux
+      yum:
+        name: ["libselinux-python", "libsemanage-python"]
+        state: absent

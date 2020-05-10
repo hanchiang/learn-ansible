@@ -1,0 +1,2 @@
+apache_docroot: /var/www/html
+apache_dirs: /opt/from-ansible
